@@ -1,5 +1,7 @@
 This a port of Nesting library written in Java at https://github.com/exacloud/Nest4J
 
+Not complete yet, but basics work.Working on it, will keep you posted.
+
 i/p is XML format
 
 o/p will be generated in SVG format
@@ -7,7 +9,11 @@ o/p will be generated in SVG format
 sample input file is available in bin folder of NestingConsole project.
 
 Sample use case:
-             //create bin
+
+
+
+
+                        //create bin
             NestPath bin = new NestPath();
             double binWidth =1000;
             double binHeight = 1000;
@@ -38,5 +44,7 @@ Sample use case:
 
 UseFul Links:
 https://github.com/exacloud/Nest4J
+
 https://github.com/Jack000/Deepnest
+
 https://github.com/Jack000/SVGnest
