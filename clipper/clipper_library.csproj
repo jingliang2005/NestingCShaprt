@@ -8,7 +8,7 @@
     <ProjectGuid>{9B062971-A88E-4A3D-B3C9-12B78D15FA66}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClipperLib</RootNamespace>
+    <RootNamespace>Clipper2d</RootNamespace>
     <AssemblyName>clipper_library</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -42,6 +42,9 @@
   <ItemGroup>
     <Compile Include="clipper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="clipper_library.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

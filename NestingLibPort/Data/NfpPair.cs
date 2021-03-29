@@ -6,11 +6,22 @@ using System.Threading.Tasks;
 
 namespace NestingLibPort.Data
 {
-
+    /// <summary>
+    /// NFP对。代表二个路径和一个NPF键。
+    /// </summary>
     public class NfpPair
     {
+        /// <summary>
+        /// 路径A。
+        /// </summary>
         NestPath A;
+        /// <summary>
+        /// 路径B。
+        /// </summary>
         NestPath B;
+        /// <summary>
+        /// NFP键。
+        /// </summary>
         NfpKey key;
 
 

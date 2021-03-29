@@ -3,33 +3,52 @@ using NestingLibPort.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;//诊断程序
 
 namespace NestingLibPort.Util
 {
     using Path = List<IntPoint>;
     using Paths = List<List<IntPoint>>;
 
+    /// <summary>
+    /// 几何实用工具。NFP生成器。碰撞检测生成NFP.
+    /// </summary>
     public class GeometryUtil
     {
 
-
+        /// <summary>
+        /// 公差。默认为0.01。
+        /// </summary>
         private static double TOL = Math.Pow(10, -2);
 
+        /// <summary>
+        /// 几乎相等。使用默认公差。（初始值为0.02）。
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static bool almostEqual(double a, double b)
         {
             return Math.Abs(a - b) < TOL;
         }
 
+        /// <summary>
+        /// 几乎相等。如果在指定公差内则认为是相等。
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="tolerance">公差。</param>
+        /// <returns></returns>
         public static bool almostEqual(double a, double b, double tolerance)
         {
             return Math.Abs(a - b) < tolerance;
         }
 
-        /**
-         * 计算多边形面积
-         * @param polygon
-         * @return
-         */
+      /// <summary>
+      /// 多边形面积。
+      /// </summary>
+      /// <param name="polygon"></param>
+      /// <returns></returns>
         public static double polygonArea(NestPath polygon)
         {
             double area = 0;
@@ -41,14 +60,14 @@ namespace NestingLibPort.Util
             }
             return 0.5 * area;
         }
-
-        /**
-         * 判断点P是否在边AB上
-         * @param A
-         * @param B
-         * @param p
-         * @return
-         */
+         
+       /// <summary>
+       /// 判断点P是否在边AB上。
+       /// </summary>
+       /// <param name="A"></param>
+       /// <param name="B"></param>
+       /// <param name="p"></param>
+       /// <returns></returns>
         public static bool onSegment(Segment A, Segment B, Segment p)
         {
             // vertical line
@@ -119,12 +138,12 @@ namespace NestingLibPort.Util
 
         }
 
-        /**
-         * 判断点P是否在多边形polygon上
-         * @param point
-         * @param polygon
-         * @return
-         */
+      /// <summary>
+      /// 判断点P是否在多边形内。
+      /// </summary>
+      /// <param name="point"></param>
+      /// <param name="polygon"></param>
+      /// <returns></returns>
         public static Boolean? pointInPolygon(Segment point, NestPath polygon)
         {
             bool inside = false;
@@ -160,11 +179,11 @@ namespace NestingLibPort.Util
             return inside;
         }
 
-        /**
-         * 获取多边形边界
-         * @param polygon
-         * @return
-         */
+        /// <summary>
+        /// 获取多边形边界。
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
         public static Bound getPolygonBounds(NestPath polygon)
         {
 
@@ -198,12 +217,12 @@ namespace NestingLibPort.Util
             return new Bound(xmin, ymin, xmax - xmin, ymax - ymin);
         }
 
-        /**
-         * 将多边形旋转一定角度后，返回旋转后多边形的边界
-         * @param polygon
-         * @param angle
-         * @return
-         */
+        /// <summary>
+        /// 将多边形旋转一定角度后，返回旋转后多边形的边界。
+        /// </summary>
+        /// <param name="polygon">多边形。</param>
+        /// <param name="angle">角度。</param>
+        /// <returns></returns>
         public static Bound rotatePolygon(NestPath polygon, double angle)
         {
             if (angle == 0)
@@ -224,12 +243,12 @@ namespace NestingLibPort.Util
             return bounds;
         }
 
-        /**
-         * 将多边形旋转一定角度后，返回该旋转后的多边形
-         * @param polygon
-         * @param degrees
-         * @return
-         */
+        /// <summary>
+        /// 将多边形旋转一定角度后，返回该旋转后的多边形
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="degrees"></param>
+        /// <returns></returns>
         public static NestPath rotatePolygon2Polygon(NestPath polygon, double degrees)
         {
             NestPath rotated = new NestPath();
@@ -255,19 +274,20 @@ namespace NestingLibPort.Util
             return rotated;
         }
 
-        /**
-         * 判断是否是矩形
-         * @param poly
-         * @param tolerance
-         * @return
-         */
+        /// <summary>
+        /// 判断是否是矩形。
+        /// </summary>
+        /// <param name="poly">多边形路径，要判断是否是矩形的多边形。</param>
+        /// <param name="tolerance">公差。</param>
+        /// <returns></returns>
         public static bool isRectangle(NestPath poly, double tolerance)
         {
             Bound bb = getPolygonBounds(poly);
 
             for (int i = 0; i < poly.size(); i++)
             {
-                if (!almostEqual(poly.get(i).x, bb.getXmin(), tolerance) && !almostEqual(poly.get(i).x, bb.getXmin() + bb.getWidth(), tolerance))
+                if (!almostEqual(poly.get(i).x, bb.getXmin(), tolerance) && 
+                    !almostEqual(poly.get(i).x, bb.getXmin() + bb.getWidth(), tolerance))
                 {
                     return false;
                 }
@@ -279,319 +299,17 @@ namespace NestingLibPort.Util
             return true;
         }
 
-        /**
-         * 构建NFP
-         * @param A
-         * @param B
-         * @param inside
-         * @param searchEdges
-         * @return
-         */
-        public static List<NestPath> noFitPolygon( NestPath A ,  NestPath B , bool inside, bool searchEdges)
-        {
-            A.setOffsetX(0);
-            A.setOffsetY(0);
-
-            double minA = A.get(0).y;
-            int minAIndex = 0;
-            double currentAX = A.get(0).x;
-            double maxB = B.get(0).y;
-            int maxBIndex = 0;
-
-            for (int i = 1; i < A.size(); i++)
-            {
-                A.get(i).marked = false;
-                if (almostEqual(A.get(i).y, minA) && A.get(i).x < currentAX)
-                {
-                    minA = A.get(i).y;
-                    minAIndex = i;
-                    currentAX = A.get(i).x;
-                }
-                else if (A.get(i).y < minA)
-                {
-                    minA = A.get(i).y;
-                    minAIndex = i;
-                    currentAX = A.get(i).x;
-                }
-            }
-            for (int i = 1; i < B.size(); i++)
-            {
-                B.get(i).marked = false;
-                if (B.get(i).y > maxB)
-                {
-                    maxB = B.get(i).y;
-                    maxBIndex = i;
-                }
-            }
-            Segment startPoint = null;
-            if (!inside)
-            {
-                startPoint = new Segment(A.get(minAIndex).x - B.get(maxBIndex).x,
-                                         A.get(minAIndex).y - B.get(maxBIndex).y);
-
-            }
-            else
-            {
-                //TODO heuristic for inside
-                startPoint = searchStartPoint(A, B, true, null);
-
-            }
-
-            List<NestPath> NFPlist = new List<NestPath>();
-
-            while (startPoint != null)
-            {
-                Segment prevvector = null;
-                B.setOffsetX(startPoint.x);
-                B.setOffsetY(startPoint.y);
-
-
-                List<SegmentRelation> touching;
-                NestPath NFP = new NestPath();
-                NFP.add(new Segment(B.get(0).x + B.getOffsetX(),
-                                    B.get(0).y + B.getOffsetY()));
-
-                double referenceX = B.get(0).x + B.getOffsetX();
-                double referenceY = B.get(0).y + B.getOffsetY();
-                double startX = referenceX;
-                double startY = referenceY;
-                int counter = 0;
-
-                // sanity check  , prevent infinite loop
-                while (counter < 10 * (A.size() + B.size()))
-                {
-                    touching = new List<SegmentRelation>();
-
-
-                    for (int i = 0; i < A.size(); i++)
-                    {
-                        int nexti = (i == A.size() - 1) ? 0 : i + 1;
-                        for (int j = 0; j < B.size(); j++)
-                        {
-                            int nextj = (j == B.size() - 1) ? 0 : j + 1;
-                            if (almostEqual(A.get(i).x, B.get(j).x + B.offsetX) && almostEqual(A.get(i).y, B.get(j).y + B.offsetY))
-                            {
-                                touching.Add(new SegmentRelation(0, i, j));
-                            }
-                            else if (onSegment(A.get(i), A.get(nexti), new Segment(B.get(j).x + B.offsetX, B.get(j).y + B.offsetY)))
-                            {
-                                touching.Add(new SegmentRelation(1, nexti, j));
-                            }
-                            else if (onSegment(new Segment(B.get(j).x + B.offsetX, B.get(j).y + B.offsetY),
-                                               new Segment(B.get(nextj).x + B.offsetX, B.get(nextj).y + B.offsetY),
-                                                A.get(i)))
-                            {
-                                touching.Add(new SegmentRelation(2, i, nextj));
-                            }
-                        }
-                    }
-
-
-                    NestPath vectors = new NestPath();
-                    for (int i = 0; i < touching.Count; i++)
-                    {
-                        Segment vertexA = A.get(touching[i].A);
-                        vertexA.marked = true;
-
-                        int prevAIndex = touching[i].A - 1;
-                        int nextAIndex = touching[i].A + 1;
-
-                        prevAIndex = (prevAIndex < 0) ? A.size() - 1 : prevAIndex; // loop
-                        nextAIndex = (nextAIndex >= A.size()) ? 0 : nextAIndex; // loop
-
-                        Segment prevA = A.get(prevAIndex);
-                        Segment nextA = A.get(nextAIndex);
-
-                        Segment vertexB = B.get(touching[i].B);
-
-                        int prevBIndex = touching[i].B - 1;
-                        int nextBIndex = touching[i].B + 1;
-
-                        prevBIndex = (prevBIndex < 0) ? B.size() - 1 : prevBIndex; // loop
-                        nextBIndex = (nextBIndex >= B.size()) ? 0 : nextBIndex; // loop
-
-                        Segment prevB = B.get(prevBIndex);
-                        Segment nextB = B.get(nextBIndex);
-
-                        if (touching[i].type == 0)
-                        {
-                            Segment vA1 = new Segment(prevA.x - vertexA.x, prevA.y - vertexA.y);
-                            vA1.start = vertexA; vA1.end = prevA;
-
-                            Segment vA2 = new Segment(nextA.x - vertexA.x, nextA.y - vertexA.y);
-                            vA2.start = vertexA; vA2.end = nextA;
-
-                            Segment vB1 = new Segment(vertexB.x - prevB.x, vertexB.y - prevB.y);
-                            vB1.start = prevB; vB1.end = vertexB;
-
-                            Segment vB2 = new Segment(vertexB.x - nextB.x, vertexB.y - nextB.y);
-                            vB2.start = nextB; vB2.end = vertexB;
-
-                            vectors.add(vA1);
-                            vectors.add(vA2);
-                            vectors.add(vB1);
-                            vectors.add(vB2);
-                        }
-                        else if (touching[i].type == 1)
-                        {
-
-                            Segment tmp = new Segment(vertexA.x - (vertexB.x + B.offsetX),
-                                                        vertexA.y - (vertexB.y + B.offsetY));
-
-                            tmp.start = prevA;
-                            tmp.end = vertexA;
-
-                            Segment tmp2 = new Segment(prevA.x - (vertexB.x + B.offsetX), prevA.y - (vertexB.y + B.offsetY));
-                            tmp2.start = vertexA; tmp2.end = prevA;
-                            vectors.add(tmp);
-                            vectors.add(tmp2);
-
-                        }
-                        else if (touching[i].type == 2)
-                        {
-                            Segment tmp1 = new Segment(vertexA.x - (vertexB.x + B.offsetX),
-                                                        vertexA.y - (vertexB.y + B.offsetY));
-                            tmp1.start = prevB;
-                            tmp1.end = vertexB;
-                            Segment tmp2 = new Segment(vertexA.x - (prevB.x + B.offsetX),
-                                                       vertexA.y - (prevB.y + B.offsetY));
-                            tmp2.start = vertexB;
-                            tmp2.end = prevB;
-
-                            vectors.add(tmp1); vectors.add(tmp2);
-                        }
-                    }
-
-                    Segment translate = null;
-
-                    Double maxd = 0.0;
-                    for (int i = 0; i < vectors.size(); i++)
-                    {
-                        if (almostEqual(vectors.get(i).x, 0) && almostEqual(vectors.get(i).y, 0))
-                        {
-                            continue;
-                        }
-
-                        if (prevvector != null && vectors.get(i).y * prevvector.y + vectors.get(i).x * prevvector.x < 0)
-                        {
-
-                            double vectorlength = Math.Sqrt(vectors.get(i).x * vectors.get(i).x + vectors.get(i).y * vectors.get(i).y);
-                            Segment unitv = new Segment(vectors.get(i).x / vectorlength, vectors.get(i).y / vectorlength);
-
-
-                            double prevlength = Math.Sqrt(prevvector.x * prevvector.x + prevvector.y * prevvector.y);
-                            Segment prevunit = new Segment(prevvector.x / prevlength, prevvector.y / prevlength);
-
-
-                            // we need to scale down to unit vectors to normalize vector length. Could also just do a tan here
-                            if (Math.Abs(unitv.y * prevunit.x - unitv.x * prevunit.y) < 0.0001)
-                            {
-
-                                continue;
-                            }
-                        }
-                        //todo polygonSlideDistance
-                        Double? d = polygonSlideDistance(A, B, vectors.get(i), true);
-
-                        double vecd2 = vectors.get(i).x * vectors.get(i).x + vectors.get(i).y * vectors.get(i).y;
-
-                        if (d == null || d * d > vecd2)
-                        {
-                            double vecd = Math.Sqrt(vectors.get(i).x * vectors.get(i).x + vectors.get(i).y * vectors.get(i).y);
-                            d = vecd;
-                        }
-
-                        if (d != null && d > maxd)
-                        {
-                            maxd =(double) d;
-                            translate = vectors.get(i);
-                        }
-
-                    }
-
-                    if (translate == null || almostEqual(maxd, 0))
-                    {
-                        // didn't close the loop, something went wrong here
-                        if (translate == null)
-                        {
-
-                        }
-                        if (almostEqual(maxd, 0))
-                        {
-                        }
-                        NFP = null;
-                        break;
-                    }
-
-                    translate.start.marked = true;
-                    translate.end.marked = true;
-
-                    prevvector = translate;
-
-
-                    // trim
-                    double vlength2 = translate.x * translate.x + translate.y * translate.y;
-                    if (maxd * maxd < vlength2 && !almostEqual(maxd * maxd, vlength2))
-                    {
-                        double scale = Math.Sqrt((maxd * maxd) / vlength2);
-                        translate.x *= scale;
-                        translate.y *= scale;
-                    }
-
-                    referenceX += translate.x;
-                    referenceY += translate.y;
-
-
-                    if (almostEqual(referenceX, startX) && almostEqual(referenceY, startY))
-                    {
-                        // we've made a full loop
-                        break;
-                    }
-
-                    // if A and B start on a touching horizontal line, the end point may not be the start point
-                    bool looped = false;
-                    if (NFP.size() > 0)
-                    {
-                        for (int i = 0; i < NFP.size() - 1; i++)
-                        {
-                            if (almostEqual(referenceX, NFP.get(i).x) && almostEqual(referenceY, NFP.get(i).y))
-                            {
-                                looped = true;
-                            }
-                        }
-                    }
-
-                    if (looped)
-                    {
-                        // we've made a full loop
-                        break;
-                    }
-
-                    NFP.add(new Segment(referenceX, referenceY));
-
-                    B.offsetX += translate.x;
-                    B.offsetY += translate.y;
-                    counter++;
-                }
-
-                if (NFP != null && NFP.size() > 0)
-                {
-                    NFPlist.Add(NFP);
-                }
-
-                if (!searchEdges)
-                {
-                    // only get outer NFP or first inner NFP
-                    break;
-                }
-                startPoint = searchStartPoint(A, B, inside, NFPlist);
-            }
-            return NFPlist;
-        }
-
+        /// <summary>
+        /// 搜索起点。
+        /// </summary>
+        /// <param name="CA"></param>
+        /// <param name="CB"></param>
+        /// <param name="inside"></param>
+        /// <param name="NFP"></param>
+        /// <returns></returns>
         public static Segment searchStartPoint(NestPath CA, NestPath CB, bool inside, List<NestPath> NFP)
         {
-
+            #region 如果路径A和B不是封闭的，则闭合。
             NestPath A = new NestPath(CA);
             NestPath B = new NestPath(CB);
 
@@ -604,6 +322,8 @@ namespace NestingLibPort.Util
             {
                 B.add(B.get(0));
             }
+
+            #endregion
 
             for (int i = 0; i < A.size() - 1; i++)
             {
@@ -626,7 +346,7 @@ namespace NestingLibPort.Util
                         }
 
                         if (Binside == null)
-                        { // A and B are the same
+                        { // A and B are the same A和B相同
                             return null;
                         }
 
@@ -637,7 +357,7 @@ namespace NestingLibPort.Util
                             return startPoint;
                         }
 
-                        // slide B along vector
+                        // slide B along vector 沿着矢量滑动B
                         double vx = A.get(i + 1).x - A.get(i).x;
                         double vy = A.get(i + 1).y - A.get(i).y;
 
@@ -646,10 +366,10 @@ namespace NestingLibPort.Util
 
                         Double? d = null;
 
-                        // todo: clean this up
+                        // todo: clean this up 待办事项：清理一下
                         if (d1 == null && d2 == null)
                         {
-                            // nothin
+                            // nothin 没什么
                         }
                         else if (d1 == null)
                         {
@@ -664,8 +384,8 @@ namespace NestingLibPort.Util
                             d = Math.Min((double)d1,(double) d2);
                         }
 
-                        // only slide until no longer negative
-                        // todo: clean this up
+                        // only slide until no longer negative 只滑动直到不再消极
+                        // todo: clean this up 待办事项：清理一下
                         if (d != null && !almostEqual((double)d, 0) && d > 0)
                         {
 
@@ -697,7 +417,8 @@ namespace NestingLibPort.Util
                             }
                         }
                         startPoint = new Segment(B.offsetX, B.offsetY);
-                        if ((((bool)Binside && inside) || (!(bool)Binside && !inside)) && !intersect(A, B) && !inNfp(startPoint, NFP))
+                        if ((((bool)Binside && inside) || (!(bool)Binside && 
+                            !inside)) && !intersect(A, B) && !inNfp(startPoint, NFP))
                         {
                             return startPoint;
                         }
@@ -706,14 +427,13 @@ namespace NestingLibPort.Util
             }
             return null;
         }
-
-
-        /**
-         *
-         * @param p
-         * @param nfp
-         * @return
-         */
+         
+        /// <summary>
+        /// 在Nfp中。
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="nfp"></param>
+        /// <returns></returns>
         public static bool inNfp(Segment p, List<NestPath> nfp)
         {
             if (nfp == null)
@@ -733,6 +453,13 @@ namespace NestingLibPort.Util
             return false;
         }
 
+        /// <summary>
+        /// 多边形投影距离。
+        /// </summary>
+        /// <param name="CA"></param>
+        /// <param name="CB"></param>
+        /// <param name="direction"></param>
+        /// <returns></returns>
         public static Double? polygonProjectionDistance(NestPath CA, NestPath CB, Segment direction)
         {
             double Boffsetx = CB.offsetX;
@@ -792,6 +519,12 @@ namespace NestingLibPort.Util
             return distance;
         }
 
+        /// <summary>
+        /// 相交。二个路径是否相交。
+        /// </summary>
+        /// <param name="CA"></param>
+        /// <param name="CB"></param>
+        /// <returns></returns>
         public static bool intersect(NestPath CA,NestPath CB)
         {
             double Aoffsetx = CA.offsetX;
@@ -940,6 +673,15 @@ namespace NestingLibPort.Util
             return false;
         }
 
+        /// <summary>
+        /// 线相交。
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="E"></param>
+        /// <param name="F"></param>
+        /// <param name="infinite"></param>
+        /// <returns></returns>
         public static Segment lineIntersect(Segment A, Segment B, Segment E, Segment F, bool? infinite)
         {
             double a1, a2, b1, b2, c1, c2, x, y;
@@ -974,6 +716,14 @@ namespace NestingLibPort.Util
             return new Segment(x, y);
         }
 
+        /// <summary>
+        /// 多边形滑动距离
+        /// </summary>
+        /// <param name="TA"></param>
+        /// <param name="TB"></param>
+        /// <param name="direction"></param>
+        /// <param name="ignoreNegative"></param>
+        /// <returns></returns>
         public static Double? polygonSlideDistance(NestPath TA , NestPath TB , Segment direction, bool ignoreNegative)
         {
             double Aoffsetx = TA.offsetX;
@@ -1034,6 +784,11 @@ namespace NestingLibPort.Util
             return distance;
         }
 
+        /// <summary>
+        /// 归一化向量。
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
         public static Segment normalizeVector(Segment v)
         {
             if (almostEqual(v.x * v.x + v.y * v.y, 1))
@@ -1046,6 +801,15 @@ namespace NestingLibPort.Util
             return new Segment(v.x * inverse, v.y * inverse);
         }
 
+        /// <summary>
+        /// 段距离
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="E"></param>
+        /// <param name="F"></param>
+        /// <param name="direction">方向</param>
+        /// <returns></returns>
         public static Double? segmentDistance(Segment A, Segment B, Segment E, Segment F, Segment direction)
         {
             double SEGTOL = 10E-4;
@@ -1236,6 +1000,15 @@ namespace NestingLibPort.Util
             return minElement;
         }
 
+        /// <summary>
+        /// 点距离，
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <param name="normal">法线（？正常）</param>
+        /// <param name="infinite">无穷</param>
+        /// <returns></returns>
         public static Double? pointDistance(Segment p, Segment s1, Segment s2, Segment normal, Boolean? infinite)
         {
             normal = normalizeVector(normal);
@@ -1268,20 +1041,408 @@ namespace NestingLibPort.Util
 
             return -(pdotnorm - s1dotnorm + (s1dotnorm - s2dotnorm) * (s1dot - pdot) / (s1dot - s2dot));
         }
+         
+        /// <summary>
+        /// 构建NFP。
+        /// </summary>
+        /// <param name="A">路径A</param>
+        /// <param name="B">路径B</param>
+        /// <param name="inside">是否里面的，另一个多边形内的。</param>
+        /// <param name="searchEdges">搜索边缘（凹多边形为TRUE）。</param>
+        /// <returns></returns>
+        public static List<NestPath> noFitPolygon(NestPath A, NestPath B, bool inside, bool searchEdges)
+        {
+            Debug.WriteLine("生成NPF，路径A为矩形。noFitPolygon");
+            A.setOffsetX(0);
+            A.setOffsetY(0);
 
-        /**
-         * 专门为环绕矩形生成的nfp
-         * @param A
-         * @param B
-         * @return
-         */
+            double minA = A.get(0).y;
+            int minAIndex = 0;//路径A中Y方向的最小点索引
+            double currentAX = A.get(0).x;
+            double maxB = B.get(0).y;
+            int maxBIndex = 0;//路径B中Y方向的最大索引。
+
+            #region 查找到路径A中Y方向最小的点。如果Y方向相等，则X较小的。
+            for (int i = 1; i < A.size(); i++)
+            {
+                A.get(i).marked = false;
+                if (almostEqual(A.get(i).y, minA) && A.get(i).x < currentAX)
+                {
+                    minA = A.get(i).y;
+                    minAIndex = i;
+                    currentAX = A.get(i).x;
+                }
+                else if (A.get(i).y < minA)
+                {
+                    minA = A.get(i).y;
+                    minAIndex = i;
+                    currentAX = A.get(i).x;
+                }
+            }
+
+            #endregion
+
+            #region 查找到路径B中Y方向最大的索引。
+            for (int i = 1; i < B.size(); i++)
+            {
+                B.get(i).marked = false;
+                if (B.get(i).y > maxB)
+                {
+                    maxB = B.get(i).y;
+                    maxBIndex = i;
+                }
+            }
+            #endregion
+
+            #region 根据是否有（支持）内部排料，查找到起始段。
+            Segment startPoint = null;
+            if (!inside)
+            {
+                startPoint = new Segment(A.get(minAIndex).x - B.get(maxBIndex).x,
+                                         A.get(minAIndex).y - B.get(maxBIndex).y);
+
+            }
+            else
+            {
+                //TODO heuristic for inside 内部启发式
+                startPoint = searchStartPoint(A, B, true, null);
+
+            }
+
+            #endregion
+
+            #region  如果找到起始段，则能生成NFP集合（多个NFP）。
+            List<NestPath> NFPlist = new List<NestPath>();
+
+            if(startPoint == null)
+            {
+                Debug.WriteLine("noFitPolygon;startPoint null error.");
+            }
+
+            while (startPoint != null)
+            {
+                Segment prevvector = null;//上一个向量。
+                B.setOffsetX(startPoint.x);
+                B.setOffsetY(startPoint.y);
+
+                List<SegmentRelation> touching; //段关联集合。
+                NestPath NFP = new NestPath();
+                NFP.add(new Segment(B.get(0).x + B.getOffsetX(),
+                                    B.get(0).y + B.getOffsetY()));
+
+                double referenceX = B.get(0).x + B.getOffsetX();//X参考。
+                double referenceY = B.get(0).y + B.getOffsetY();//Y参考。
+                double startX = referenceX;//X起始。
+                double startY = referenceY;//Y起始。
+                int counter = 0;//计数器。
+
+                // sanity check  , prevent infinite loop 健全性检查，防止无限循环
+                while (counter < 2 * (A.size() + B.size()))
+                {
+                    Debug.WriteLine("counter=" + counter);
+
+                    #region 
+                    #region 段关联集合（touching）增加数据。
+                    touching = new List<SegmentRelation>();
+
+                    for (int i = 0; i < A.size(); i++)
+                    {
+                        int nexti = (i == A.size() - 1) ? 0 : i + 1;
+#if DEBUG
+                        if (i == 0)
+                        {
+
+                        }
+#endif
+                        for (int j = 0; j < B.size(); j++)
+                        {
+                            if(i== A.size() -1 && j == B.size() - 1)
+                            {
+                                Debug.WriteLine("curr i=" + i + "; j=" + j);
+                            }
+                            #region 根据不同的情况。向段关联集合（touching）增加数据。
+                            int nextj = (j == B.size() - 1) ? 0 : j + 1;
+                            if (almostEqual(A.get(i).x, B.get(j).x + B.offsetX) &&
+                                almostEqual(A.get(i).y, B.get(j).y + B.offsetY))
+                            {
+                                //如果路径A和路径B的当前点接近的情况下：
+                                touching.Add(new SegmentRelation(0, i, j));
+                            }
+                            else if (onSegment(A.get(i), A.get(nexti), new Segment(B.get(j).x + B.offsetX, B.get(j).y + B.offsetY)))
+                            {
+                                //
+                                touching.Add(new SegmentRelation(1, nexti, j));
+                            }
+                            else if (onSegment(new Segment(B.get(j).x + B.offsetX, B.get(j).y + B.offsetY),
+                                               new Segment(B.get(nextj).x + B.offsetX, B.get(nextj).y + B.offsetY),
+                                                A.get(i)))
+                            {
+                                touching.Add(new SegmentRelation(2, i, nextj));
+                            }
+                            else
+                            {
+                                //TODO:没有处理的情况，这个经常出错。
+                                string mess = "A SIZE:" + A.size().ToString() + ";B SIZE:" + B.size().ToString() +
+                                    ";I IS:" + i.ToString() + ";J IS:" + j.ToString();
+                                Debug.WriteLine("构建NFP：没有处理的情况。" + mess);
+                                
+                                Debug.WriteLine("   A " + A.get(i) + ";  B " + B.get(j));
+                                Debug.WriteLine("   Next A " + A.get(nexti) +  "; B " + B.get(nextj));
+
+                            }
+                            #endregion 
+                        }
+                    }
+
+                    #endregion
+
+                    NestPath vectors = new NestPath();//向量集合，用路径表示（NestPath).
+                    for (int i = 0; i < touching.Count; i++)
+                    {
+                        #region 根据段关联集合touching的类型，创建路径（增加向量集合（vectors).
+                        Segment vertexA = A.get(touching[i].A);
+                        vertexA.marked = true;
+
+                        int prevAIndex = touching[i].A - 1;
+                        int nextAIndex = touching[i].A + 1;
+
+                        prevAIndex = (prevAIndex < 0) ? A.size() - 1 : prevAIndex; // loop
+                        nextAIndex = (nextAIndex >= A.size()) ? 0 : nextAIndex; // loop
+
+                        Segment prevA = A.get(prevAIndex);
+                        Segment nextA = A.get(nextAIndex);
+
+                        Segment vertexB = B.get(touching[i].B);
+
+                        int prevBIndex = touching[i].B - 1;
+                        int nextBIndex = touching[i].B + 1;
+
+                        prevBIndex = (prevBIndex < 0) ? B.size() - 1 : prevBIndex; // loop
+                        nextBIndex = (nextBIndex >= B.size()) ? 0 : nextBIndex; // loop
+
+                        Segment prevB = B.get(prevBIndex);
+                        Segment nextB = B.get(nextBIndex);
+
+                        if (touching[i].type == 0)
+                        {
+                            #region 
+                            Segment vA1 = new Segment(prevA.x - vertexA.x, prevA.y - vertexA.y);
+                            vA1.start = vertexA; vA1.end = prevA;
+
+                            Segment vA2 = new Segment(nextA.x - vertexA.x, nextA.y - vertexA.y);
+                            vA2.start = vertexA; vA2.end = nextA;
+
+                            Segment vB1 = new Segment(vertexB.x - prevB.x, vertexB.y - prevB.y);
+                            vB1.start = prevB; vB1.end = vertexB;
+
+                            Segment vB2 = new Segment(vertexB.x - nextB.x, vertexB.y - nextB.y);
+                            vB2.start = nextB; vB2.end = vertexB;
+
+                            vectors.add(vA1);
+                            vectors.add(vA2);
+                            vectors.add(vB1);
+                            vectors.add(vB2);
+                            #endregion
+                        }
+                        else if (touching[i].type == 1)
+                        {
+                            #region 
+                            Segment tmp = new Segment(vertexA.x - (vertexB.x + B.offsetX),
+                                                        vertexA.y - (vertexB.y + B.offsetY));
+
+                            tmp.start = prevA;
+                            tmp.end = vertexA;
+
+                            Segment tmp2 = new Segment(prevA.x - (vertexB.x + B.offsetX), prevA.y - (vertexB.y + B.offsetY));
+                            tmp2.start = vertexA; tmp2.end = prevA;
+                            vectors.add(tmp);
+                            vectors.add(tmp2);
+                            #endregion 
+                        }
+                        else if (touching[i].type == 2)
+                        {
+                            #region 
+                            Segment tmp1 = new Segment(vertexA.x - (vertexB.x + B.offsetX),
+                                                        vertexA.y - (vertexB.y + B.offsetY));
+                            tmp1.start = prevB;
+                            tmp1.end = vertexB;
+                            Segment tmp2 = new Segment(vertexA.x - (prevB.x + B.offsetX),
+                                                       vertexA.y - (prevB.y + B.offsetY));
+                            tmp2.start = vertexB;
+                            tmp2.end = prevB;
+
+                            vectors.add(tmp1); vectors.add(tmp2);
+                            #endregion 
+                        }
+                        else
+                        {
+                            Debug.WriteLine("构建NFP。没有处理的情况。");
+                        }
+                        #endregion
+
+                    }
+
+                    Segment translate = null;//翻译，偏移。
+
+                    Double maxd = 0.0;
+                    for (int i = 0; i < vectors.size(); i++)
+                    {
+                        #region 处理偏移。和maxd。
+                        // //如果向量在坐标（0.0）则执行下一个循环。
+                        if (almostEqual(vectors.get(i).x, 0) && almostEqual(vectors.get(i).y, 0))
+                        {
+                            continue; //如果向量在坐标（0.0）则执行下一个循环。
+                        }
+
+                        //如果上一个向量和当前向量过近处理。
+                        if (prevvector != null && 
+                            vectors.get(i).y * prevvector.y + vectors.get(i).x * prevvector.x < 0)
+                        {
+                            #region 满足条件退出本次循环，继续下一个循环。
+                            double vectorlength = Math.Sqrt(vectors.get(i).x * vectors.get(i).x + vectors.get(i).y * vectors.get(i).y);
+                            Segment unitv = new Segment(vectors.get(i).x / vectorlength, vectors.get(i).y / vectorlength);
+                             
+                            double prevlength = Math.Sqrt(prevvector.x * prevvector.x + prevvector.y * prevvector.y);
+                            Segment prevunit = new Segment(prevvector.x / prevlength, prevvector.y / prevlength);
+                             
+                            // we need to scale down to unit vectors to normalize vector length. Could also just do a tan here
+                            //我们需要按比例缩小到单位向量以标准化向量长度。 也可以在这里晒黑 
+                            if (Math.Abs(unitv.y * prevunit.x - unitv.x * prevunit.y) < 0.0001)
+                            { 
+                                continue;
+                            }
+                            #endregion 
+                        }
+                        //todo polygonSlideDistance 多边形滑动距离
+                        Double? d = polygonSlideDistance(A, B, vectors.get(i), true); 
+                        double vecd2 = vectors.get(i).x * vectors.get(i).x + vectors.get(i).y * vectors.get(i).y;
+
+                        if (d == null || d * d > vecd2)
+                        {
+                            double vecd = Math.Sqrt(vectors.get(i).x * vectors.get(i).x + vectors.get(i).y * vectors.get(i).y);
+                            d = vecd;
+                        }
+
+                        if (d != null && d > maxd)
+                        {
+                            maxd = (double)d;
+                            translate = vectors.get(i);
+                        }
+                        else
+                        {
+                            
+                        }
+
+                        #endregion
+                    }
+
+                    #region 没有结束循环，这里出了点问题。
+                    if (translate == null || almostEqual(maxd, 0))
+                    {
+                        Debug.WriteLine("counter:" + counter.ToString() + "; a:" + A.size() + "; b:" + B.size());
+                        // didn't close the loop, something went wrong here
+                        // 没有结束循环，这里出了点问题。
+                        if (translate == null)
+                        {
+                            Debug.WriteLine("error:translate is null.");
+                        }
+                        if (almostEqual(maxd, 0))
+                        {
+                            Debug.WriteLine("error;point is 0");
+                        }
+                        Debug.WriteLine("构建NFP。没有结束循环，这里出了点问题。NFP=null");
+                        NFP = null;
+                        break;
+                    }
+
+                    #endregion
+
+                    translate.start.marked = true;
+                    translate.end.marked = true;
+
+                    prevvector = translate;
+
+                    // trim  修剪
+                    double vlength2 = translate.x * translate.x + translate.y * translate.y;
+                    if (maxd * maxd < vlength2 && !almostEqual(maxd * maxd, vlength2))
+                    {
+                        double scale = Math.Sqrt((maxd * maxd) / vlength2);
+                        translate.x *= scale;
+                        translate.y *= scale;
+                    }
+
+                    referenceX += translate.x;
+                    referenceY += translate.y;
+                     
+                    if (almostEqual(referenceX, startX) && almostEqual(referenceY, startY))
+                    {
+                        // we've made a full loop 我们做了一个完整的循环
+                        break;
+                    }
+
+                    // if A and B start on a touching horizontal line, the end point may not be the start point
+                    // 如果A和B在一条接触的水平线上开始，则终点可能不是起点
+                    bool looped = false;
+                    if (NFP.size() > 0)
+                    {
+                        for (int i = 0; i < NFP.size() - 1; i++)
+                        {
+                            if (almostEqual(referenceX, NFP.get(i).x) && almostEqual(referenceY, NFP.get(i).y))
+                            {
+                                looped = true;
+                            }
+                        }
+                    }
+
+                    if (looped)
+                    {
+                        // we've made a full loop 我们做了一个完整的循环
+                        break;
+                    }
+
+                    NFP.add(new Segment(referenceX, referenceY));
+
+                    B.offsetX += translate.x;
+                    B.offsetY += translate.y;
+                    counter++;
+                    #endregion
+                }
+
+                #region 如果找到NFP则增加，
+                if (NFP != null && NFP.size() > 0)
+                {
+                    NFPlist.Add(NFP);
+                }
+
+                if (!searchEdges)
+                {
+                    Debug.WriteLine("仅获得外部NFP或第一个内部NFP");
+                    // only get outer NFP or first inner NFP 仅获得外部NFP或第一个内部NFP
+                    break;
+                }
+                startPoint = searchStartPoint(A, B, inside, NFPlist);
+                #endregion
+
+            }
+            return NFPlist;
+            #endregion 
+        }
+
+        /// <summary>
+        /// 专门为环绕矩形生成的nfp，NFP生成器。
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
         public static List<NestPath> noFitPolygonRectangle(NestPath A, NestPath B)
         {
+            Debug.WriteLine("生成矩形NPF，路径A为矩形。noFitPolygonRectangle");
+            #region 计算路径B是否小于路径B。通过长度，宽度比较。
             double minAx = A.get(0).x;
             double minAy = A.get(0).y;
             double maxAx = A.get(0).x;
             double maxAy = A.get(0).y;
-
+            //查找到路径A的最小最大XY。
             for (int i = 1; i < A.size(); i++)
             {
                 if (A.get(i).x < minAx)
@@ -1301,7 +1462,7 @@ namespace NestingLibPort.Util
                     maxAy = A.get(i).y;
                 }
             }
-
+            //查找到路径B的最小最大XY。
             double minBx = B.get(0).x;
             double minBy = B.get(0).y;
             double maxBx = B.get(0).x;
@@ -1326,8 +1487,6 @@ namespace NestingLibPort.Util
                 }
             }
 
-
-
             if (maxBx - minBx > maxAx - minAx)
             {
 
@@ -1341,6 +1500,8 @@ namespace NestingLibPort.Util
                 return null;
             }
 
+            #endregion
+
 
             List<NestPath> nfpRect = new List<NestPath>();
             NestPath res = new NestPath();
@@ -1352,12 +1513,13 @@ namespace NestingLibPort.Util
             return nfpRect;
         }
 
-        /**
-         *
-         * @param A
-         * @param B
-         * @return
-         */
+        /// <summary>
+        /// 闵可夫斯基差算法生成NFP。
+        /// 应该是一种碰撞算法。查找（参见） GJK算法相关资料。
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
         public static List<NestPath> minkowskiDifference(NestPath A, NestPath B)
         {
             Path Ac = PlacementWorker.scaleUp2ClipperCoordinates(A);
@@ -1396,6 +1558,18 @@ namespace NestingLibPort.Util
             return nfp;
         }
 
+        /// <summary>
+        /// 线性化。
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="angle"></param>
+        /// <param name="laregearc"></param>
+        /// <param name="sweep"></param>
+        /// <param name="tol"></param>
+        /// <returns></returns>
         public static NestPath linearize(Segment p1, Segment p2, double rx, double ry, double angle, int laregearc, int sweep, double tol)
         {
             NestPath finished = new NestPath();
@@ -1426,6 +1600,16 @@ namespace NestingLibPort.Util
             return finished;
         }
 
+        /// <summary>
+        /// 转换为SVG。
+        /// </summary>
+        /// <param name="center"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="theta1"></param>
+        /// <param name="extent"></param>
+        /// <param name="angleDegrees"></param>
+        /// <returns></returns>
         public static DataExchange ConvertToSvg(Segment center, double rx, double ry, double theta1, double extent, double angleDegrees)
         {
             double theta2 = theta1 + extent;
@@ -1456,6 +1640,17 @@ namespace NestingLibPort.Util
             return new DataExchange(new Segment(x0, y0), new Segment(x1, y1), rx, ry, angle, largearc, sweep, true);
         }
 
+        /// <summary>
+        /// 转换为中心，
+        /// </summary>
+        /// <param name="p1">段1</param>
+        /// <param name="p2">段2</param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="angleDgrees"></param>
+        /// <param name="largearc">大弧</param>
+        /// <param name="sweep">扫</param>
+        /// <returns></returns>
         public static DataExchange ConvertToCenter(Segment p1, Segment p2, double rx, double ry, double angleDgrees, int largearc, int sweep)
         {
             Segment mid = new Segment(0.5 * (p1.x + p2.x), 0.5 * (p1.y + p2.y));
@@ -1530,28 +1725,63 @@ namespace NestingLibPort.Util
 
         }
 
+        /// <summary>
+        /// 角度转换成弧度。
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns></returns>
         public static double degreesToRadians(double angle)
         {
             return angle * (Math.PI / 180);
         }
 
+        /// <summary>
+        /// 弧度转换成角度。
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns></returns>
         public static double radiansToDegree(double angle)
         {
             return angle * (180 / Math.PI);
         }
 
-       public   class DataExchange
+        #region class DataExchange 数据交换。
+        /// <summary>
+        /// 数据交换类。
+        /// </summary>
+        public class DataExchange
         {
-          internal  Segment p1;
+            internal Segment p1;
             internal Segment p2;
+            /// <summary>
+            /// 中心。
+            /// </summary>
             internal Segment center;
             internal double rx;
             internal double ry;
+            /// <summary>
+            /// 小写的θ是：数学上常代表平面的角。
+            /// </summary>
             internal double theta;
+            /// <summary>
+            /// 程度
+            /// </summary>
             internal double extent;
+            /// <summary>
+            /// 角度。
+            /// </summary>
             internal double angle;
+            /// <summary>
+            /// 大弧
+            /// </summary>
             internal double largearc;
+            /// <summary>
+            /// 扫
+            /// </summary>
             internal int sweep;
+            /// <summary>
+            /// 旗
+            /// </summary>
             internal bool flag;
 
             public DataExchange(Segment p1, Segment p2, double rx, double ry, double angle, double largearc, int sweep, bool flag)
@@ -1578,7 +1808,7 @@ namespace NestingLibPort.Util
                 this.flag = flag;
             }
 
-            
+
             public override String ToString()
             {
                 String s = "";
@@ -1594,6 +1824,15 @@ namespace NestingLibPort.Util
             }
         }
 
+        #endregion
+
+        /// <summary>
+        /// 在距离之内
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="distance">距离</param>
+        /// <returns></returns>
         public static bool withinDistance(Segment p1, Segment p2, double distance)
         {
             double dx = p1.x - p2.x;

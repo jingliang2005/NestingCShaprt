@@ -20,19 +20,19 @@ using System.Xml.Linq;
 //import java.util.List;
 namespace NestingLibPort.Util
 {
- public static  class SvgUtil
+    public static class SvgUtil
     {
-        public static void saveSvgFile(List<String> strings,string path) 
+        public static void saveSvgFile(List<String> strings, string path)
         {
-            StreamWriter f=null;
-        if (!File.Exists(path) )
-                
-                {
-                f = File.CreateText(path);
-        }
-        else
+            StreamWriter f = null;
+            if (!File.Exists(path))
+
             {
-                 File.Delete(path);
+                f = File.CreateText(path);
+            }
+            else
+            {
+                File.Delete(path);
                 f = File.CreateText(path);
 
             }
@@ -44,104 +44,167 @@ namespace NestingLibPort.Util
                 " \n" +
                 "<svg width=\"100%\" height=\"100%\" version=\"1.1\"\n" +
                 "xmlns=\"http://www.w3.org/2000/svg\">\n");
-        foreach(String s in strings){
+            foreach (String s in strings)
+            {
                 f.Write(s);
-        }
+            }
             f.Write("</svg>");
-        f.Close();
-    }
+            f.Close();
+        }
+
         public static List<String> svgGenerator(List<NestPath> list, List<List<Placement>> applied, double binwidth, double binHeight)
         {
             List<String> strings = new List<String>();
-        int x = 10;
-        int y = 0;
-        foreach (List<Placement> binlist in applied) {
-            String s = " <g transform=\"translate(" + x + "  " + y + ")\">" + "\n";
-        s += "    <rect x=\"0\" y=\"0\" width=\"" + binwidth + "\" height=\"" + binHeight + "\"  fill=\"none\" stroke=\"#010101\" stroke-width=\"1\" />\n";
-            foreach (Placement placement in binlist) {
-                int bid = placement.bid;
-        NestPath nestPath = getNestPathByBid(bid, list);
-        double ox = placement.translate.x;
-        double oy = placement.translate.y;
-        double rotate = placement.rotate;
-        s += "<g transform=\"translate(" + ox + x + " " + oy + y + ") rotate(" + rotate + ")\"> \n";
-                s += "<path d=\"";
-                for (int i = 0; i<nestPath.getSegments().Count; i++) {
-                    if (i == 0) {
-                        s += "M";
-                    } else {
-                        s += "L";
+            int x = 10;
+            int y = 0;
+            foreach (List<Placement> binlist in applied)
+            {
+                String s = " <g transform=\"translate(" + x + "  " + y + ")\">" + "\n";
+                s += "    <rect x=\"0\" y=\"0\" width=\"" + binwidth + "\" height=\"" + binHeight + "\"  fill=\"none\" stroke=\"#010101\" stroke-width=\"1\" />\n";
+                foreach (Placement placement in binlist)
+                {
+                    int bid = placement.bid;
+                    NestPath nestPath = getNestPathByBid(bid, list);
+                    double ox = placement.translate.x;
+                    double oy = placement.translate.y;
+                    double rotate = placement.rotate;
+                    s += "<g transform=\"translate(" + ox + x + " " + oy + y + ") rotate(" + rotate + ")\"> \n";
+                    s += "<path d=\"";
+                    for (int i = 0; i < nestPath.getSegments().Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            s += "M";
+                        }
+                        else
+                        {
+                            s += "L";
+                        }
+                        Segment segment = nestPath.get(i);
+                        s += segment.x + " " + segment.y + " ";
                     }
-Segment segment = nestPath.get(i);
-s += segment.x + " " + segment.y + " ";
+                    s += "Z\" fill=\"#8498d1\" stroke=\"#010101\" stroke-width=\"1\" />" + " \n";
+                    s += "</g> \n";
                 }
-                s += "Z\" fill=\"#8498d1\" stroke=\"#010101\" stroke-width=\"1\" />" + " \n";
                 s += "</g> \n";
+                y += (int)(binHeight + 50);
+                strings.Add(s);
             }
-            s += "</g> \n";
-            y +=(int) (binHeight + 50);
-            strings.Add(s);
+            return strings;
         }
-        return strings;
-    }
 
-    public static NestPath getNestPathByBid(int bid, List<NestPath> list)
-{
-    foreach (NestPath nestPath in list)
-    {
-        if (nestPath.bid == bid)
+        public static List<String> svgGenerator(List<NestPath> list, double binwidth, double binHeight)
         {
-            return nestPath;
+            List<String> strings = new List<String>();
+            int x = 10;
+            int y = 0;
+           // foreach (List<Placement> binlist in applied)
+           // { 
+                String s = " <g transform=\"translate(" + x + "  " + y + ")\">" + "\n";
+                s += "    <rect x=\"0\" y=\"0\" width=\"" + binwidth + "\" height=\"" + binHeight + "\"  fill=\"none\" stroke=\"#010101\" stroke-width=\"1\" />\n";
+                foreach (NestPath nestPath in list)
+                {
+                int bid = 0;// placement.bid;
+                            //NestPath nestPath = getNestPathByBid(bid, list);
+                double ox = 0;// placement.translate.x;
+                double oy = 0; // placement.translate.y;
+                double rotate = 0; // placement.rotate;
+                    s += "<g transform=\"translate(" + ox + x + " " + oy + y + ") rotate(" + rotate + ")\"> \n";
+                    s += "<path d=\"";
+                    for (int i = 0; i < nestPath.getSegments().Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            s += "M";
+                        }
+                        else
+                        {
+                            s += "L";
+                        }
+                        Segment segment = nestPath.get(i);
+                        s += segment.x + " " + segment.y + " ";
+                    }
+                    s += "Z\" fill=\"#8498d1\" stroke=\"#010101\" stroke-width=\"1\" />" + " \n";
+                    s += "</g> \n";
+                }
+                s += "</g> \n";
+                y += (int)(binHeight + 50);
+                strings.Add(s);
+           // }
+            return strings;
         }
-    }
-    return null;
-}
+        
+        /// <summary>
+        /// 从路径集合中获取指定BID的路径(NestPath)。
+        /// </summary>
+        /// <param name="bid"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static NestPath getNestPathByBid(int bid, List<NestPath> list)
+        {
+            foreach (NestPath nestPath in list)
+            {
+                if (nestPath.bid == bid)
+                {
+                    return nestPath;
+                }
+            }
+            return null;
+        }
 
-
-        public static List<NestPath> transferSvgIntoPolygons(string xmlFilePath) 
+        /// <summary>
+        /// 将SvgIn转换为多边形
+        /// </summary>
+        /// <param name="xmlFilePath"></param>
+        /// <returns></returns>
+        public static List<NestPath> transferSvgIntoPolygons(string xmlFilePath)
         {
             List<NestPath> nestPaths = new List<NestPath>();
 
             XDocument document = XDocument.Load(xmlFilePath);
             List<XElement> elementList = document.Root.DescendantNodes().OfType<XElement>().ToList();
-        int count = 0;
-        foreach (XElement element in elementList) {
-            count++;
-            if ("polygon"==(element.Name)) {
+            int count = 0;
+            foreach (XElement element in elementList)
+            {
+                count++;
+                if ("polygon" == (element.Name))
+                {
                     String datalist = element.Attributes((XName)"points").ToList()[0].Value.ToString();
-        NestPath polygon = new NestPath();
-                foreach (String s in datalist.Split(' ')) {
-                    var temp = s.Trim();
-                    if (temp.IndexOf(",") == -1) {
-                        continue;
+                    NestPath polygon = new NestPath();
+                    foreach (String s in datalist.Split(' '))
+                    {
+                        var temp = s.Trim();
+                        if (temp.IndexOf(",") == -1)
+                        {
+                            continue;
+                        }
+                        String[] value = s.Split(',');
+                        double x = Double.Parse(value[0]);
+                        double y = Double.Parse(value[1]);
+                        polygon.add(x, y);
                     }
-                    String[] value = s.Split(',');
-        double x = Double.Parse(value[0]);
-        double y = Double.Parse(value[1]);
-        polygon.add(x, y);
+                    polygon.bid = count;
+                    polygon.setRotation(4);
+                    nestPaths.Add(polygon);
                 }
-    polygon.bid = count;
-                polygon.setRotation(4);
-                nestPaths.Add(polygon);
-            } else if ("rect"==element.Name) {
-                double width = Double.Parse(element.Attributes((XName)"width").ToList()[0].Value.ToString());
-double height = Double.Parse(element.Attributes((XName)"height").ToList()[0].Value.ToString());
-double x = Double.Parse(element.Attributes((XName)"x").ToList()[0].Value.ToString());
-double y = Double.Parse(element.Attributes((XName)"y").ToList()[0].Value.ToString());
-NestPath rect = new NestPath();
-rect.add(x, y);
-                rect.add(x + width, y);
-                rect.add(x + width, y + height);
-                rect.add(x, y + height);
-                rect.bid = count;
-                rect.setRotation(4);
-                nestPaths.Add(rect);
+                else if ("rect" == element.Name)
+                {
+                    double width = Double.Parse(element.Attributes((XName)"width").ToList()[0].Value.ToString());
+                    double height = Double.Parse(element.Attributes((XName)"height").ToList()[0].Value.ToString());
+                    double x = Double.Parse(element.Attributes((XName)"x").ToList()[0].Value.ToString());
+                    double y = Double.Parse(element.Attributes((XName)"y").ToList()[0].Value.ToString());
+                    NestPath rect = new NestPath();
+                    rect.add(x, y);
+                    rect.add(x + width, y);
+                    rect.add(x + width, y + height);
+                    rect.add(x, y + height);
+                    rect.bid = count;
+                    rect.setRotation(4);
+                    nestPaths.Add(rect);
+                }
             }
+            return nestPaths;
         }
-        return nestPaths;
+         
     }
-
-
-       
-}
 }

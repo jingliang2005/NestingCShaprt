@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace NestingLibPort.Util.Coor
 {
+    /// <summary>
+    /// 剪辑库Clipper的坐标类。
+    /// </summary>
     public class ClipperCoor
     {
         long x;

@@ -11,6 +11,9 @@ namespace NestingLibPort.Util
     using Path = List<IntPoint>;
     using Paths = List<List<IntPoint>>;
 
+    /// <summary>
+    /// 通用工具，
+    /// </summary>
     public class CommonUtil
     {
 
@@ -40,7 +43,7 @@ namespace NestingLibPort.Util
         }
 
         /**
-         * 坐标转换
+         * 坐标转换，用双精度小数（X/Y)构建长整形的坐标。
          * @param x
          * @param y
          * @return
@@ -51,7 +54,7 @@ namespace NestingLibPort.Util
         }
 
         /**
-         * 坐标转换
+         * 坐标转换，用长整形（X/Y)的坐标，构建双精度的坐标。
          * @param x
          * @param y
          * @return
@@ -83,21 +86,22 @@ namespace NestingLibPort.Util
          */
         public static void ChangePosition(NestPath binPath, List<NestPath> polys)
         {
-
+            //TODO:空，没有实现。
         }
 
-        /**
-         *  将NestPath列表转换成父子关系的树
-         * @param list
-         * @param idstart
-         * @return
-         */
+        /// <summary>
+        /// 将NestPath集合转换成父子关系的树。就是找到样片的内孔
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="idstart">id start 开始编号</param>
+        /// <returns></returns>
         public static int toTree(List<NestPath> list, int idstart)
         {
-            List<NestPath> parents = new List<NestPath>();
+            // parents:父母
+            List<NestPath> parents = new List<NestPath>();//构建父路径集合。
             int id = idstart;
             /**
-             * 找出所有的内回环
+             * 找出所有的内回环，如果多边形在别的多边形内，则为子多边形。
              */
             for (int i = 0; i < list.Count; i++)
             {
@@ -109,7 +113,7 @@ namespace NestingLibPort.Util
                     {
                         continue;
                     }
-
+                    //TODO:这个只要有一个点在父路径多边形内则认为是子路径，没有检测完全包含？
                     if (GeometryUtil.pointInPolygon(p.getSegments()[0], list[j]) == true)
                     {
                         list[j].getChildren().Add(p);
@@ -151,6 +155,11 @@ namespace NestingLibPort.Util
             return id;
         }
 
+        /// <summary>
+        /// cliclipper的整数量坐标转换成NestPath双精度小数坐标。
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
         public static NestPath clipperToNestPath(Path polygon)
         {
             
@@ -163,6 +172,11 @@ namespace NestingLibPort.Util
             return normal;
         }
 
+        /// <summary>
+        /// 偏移路径树。缩放。采用Clipper的ClipperOffset类，斜接限制固定为2。
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="offset"></param>
         public static void offsetTree(List<NestPath> t, double offset)
         {
             
@@ -187,6 +201,12 @@ namespace NestingLibPort.Util
             }
         }
 
+        /// <summary>
+        /// 多边形偏移，缩放。采用Clipper的ClipperOffset类，斜接限制固定为2。
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
         public static List<NestPath> polygonOffset(NestPath polygon, double offset)
         {
             List<NestPath> result = new List<NestPath>();
@@ -204,8 +224,8 @@ namespace NestingLibPort.Util
                 p.Add(new IntPoint(cc.getX(), cc.getY()));
             }
 
-            int miterLimit = 2;
-            ClipperOffset co = new ClipperOffset(miterLimit, Config.CURVE_TOLERANCE * Config.CLIIPER_SCALE);
+            int miterLimit = 2;//斜接限制
+                        ClipperOffset co = new ClipperOffset(miterLimit, Config.CURVE_TOLERANCE * Config.CLIIPER_SCALE);
             co.AddPath(p, JoinType.jtRound, EndType.etClosedPolygon);
 
             Paths newpaths = new Paths();
@@ -222,12 +242,14 @@ namespace NestingLibPort.Util
 
             if (offset > 0)
             {
+                //TODO:代码没有问题，这理的理论不太清楚，面积为正数则要反转点的顺序。面积和点顺序如果联系？
                 NestPath from = result[0];
                 if (GeometryUtil.polygonArea(from) > 0)
                 {
                     from.reverse();
                 }
-                from.add(from.get(0)); from.getSegments().RemoveAt(0);
+                from.add(from.get(0));
+                from.getSegments().RemoveAt(0);
             }
 
 
@@ -235,22 +257,30 @@ namespace NestingLibPort.Util
         }
 
 
-        /**
-         * 对应于JS项目中的getParts
-         */
+        /// <summary>
+        /// 构建树。将源路径集合清洁（去除过于接近的邻点），然后克隆到新集合。并建立父子关系。
+        /// 对应于JS项目中的getParts，父子关系指轮廓有内孔时，外轮廓为父，内轮廓为子。
+        /// </summary>
+        /// <param name="parts">源路径集合。</param>
+        /// <param name="curve_tolerance">曲线公差</param>
+        /// <returns></returns>
         public static List<NestPath> BuildTree(List<NestPath> parts, double curve_tolerance)
         {
             List<NestPath> polygons = new List<NestPath>();
             for (int i = 0; i < parts.Count; i++)
-            {
+            { 
                 NestPath cleanPoly = NestPath.cleanNestPath(parts[i]);
-                cleanPoly.bid = parts[i].bid;
-                if (cleanPoly.size() > 2 && Math.Abs(GeometryUtil.polygonArea(cleanPoly)) > curve_tolerance * curve_tolerance)
+                if(cleanPoly != null)
                 {
-                    cleanPoly.setSource(i);
-
-                    polygons.Add(cleanPoly);
+                    cleanPoly.bid = parts[i].bid;
+                    if (cleanPoly.size() > 2 &&
+                        Math.Abs(GeometryUtil.polygonArea(cleanPoly)) > curve_tolerance * curve_tolerance)
+                    {
+                        cleanPoly.setSource(i);
+                        polygons.Add(cleanPoly);
+                    }
                 }
+                
             }
 
             CommonUtil.toTree(polygons, 0);

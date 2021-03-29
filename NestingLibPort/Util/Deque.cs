@@ -7,6 +7,8 @@ using System.Text;
 namespace NestingLibPort.Util
 {
     /// <summary>
+    /// 双端队列（双端队列），提供O（1）索引访问，从正面和背面进行O（1）删除，
+    /// 在正面和背面进行摊销的O（1）插入以及在任意位置进行O（N）插入和删除 否则（随着索引接近中间，操作会变慢）
     /// A double-ended queue (deque), which provides O(1) indexed access, O(1) removals from the front and back, amortized O(1) insertions to the front and back, and O(N) insertions and removals anywhere else (with the operations getting slower as the index approaches the middle).
     /// </summary>
     /// <typeparam name="T">The type of elements contained in the deque.</typeparam>

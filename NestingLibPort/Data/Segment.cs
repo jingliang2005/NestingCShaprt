@@ -7,18 +7,30 @@ using System.Threading.Tasks;
 
 namespace NestingLibPort.Data
 {
-
+    /// <summary>
+    /// 段。
+    /// </summary>
     public class Segment
     {
         public double x;
         public double y;
 
         public bool marked = false;
+        /// <summary>
+        /// 起始段。
+        /// </summary>
         public Segment start;
+        /// <summary>
+        /// 结束段。
+        /// </summary>
         public Segment end;
 
 
-       
+       /// <summary>
+       /// 是否相等。
+       /// </summary>
+       /// <param name="obj"></param>
+       /// <returns></returns>
         public override bool Equals(Object obj)
         {
             Segment s = (Segment)obj;
@@ -61,11 +73,19 @@ namespace NestingLibPort.Data
             return "x = " + x + ", y = " + y;
         }
 
+        /// <summary>
+        /// 已标记
+        /// </summary>
+        /// <returns></returns>
         public bool isMarked()
         {
             return marked;
         }
 
+        /// <summary>
+        /// 设置标记。
+        /// </summary>
+        /// <param name="marked"></param>
         public void setMarked(bool marked)
         {
             this.marked = marked;

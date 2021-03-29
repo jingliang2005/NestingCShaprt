@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
+
 using NestingLibPort.Data;
 using NestingLibPort.Util;
 using NestingLibPort.Util.Coor;
@@ -25,38 +27,62 @@ namespace NestingLibPort
 
     public class Nest
     {
+        /// <summary>
+        /// 材料路径。
+        /// </summary>
         private NestPath binPath;
+        /// <summary>
+        /// 分片集合。
+        /// </summary>
         private List<NestPath> parts;
+        /// <summary>
+        /// 配置。
+        /// </summary>
         private Config config;
+        /// <summary>
+        /// 计算次数设定值。
+        /// </summary>
         int loopCount;
+        /// <summary>
+        /// 遗传算法类。
+        /// </summary>
         private GeneticAlgorithm GA = null;
+        /// <summary>
+        /// NFP缓存的键值对集合。
+        /// </summary>
         private Dictionary<String, List<NestPath>> nfpCache;
         //   private static Gson gson = new GsonBuilder().create();
+        /// <summary>
+        /// JSON序列化反序列化类。
+        /// </summary>
         private JavaScriptSerializer serialize = new JavaScriptSerializer();
+        /// <summary>
+        /// 发送工作的次数。计算的迭代次数。
+        /// </summary>
         private int launchcount = 0;
-
-        /**
-         *  创建一个新的Nest对象
-         * @param binPath   底板多边形
-         * @param parts     板件多边形列表
-         * @param config    参数设置
-         * @param count     迭代计算次数
-         */
+         
+        /// <summary>
+        /// 创建一个新的Nest对象
+        /// </summary>
+        /// <param name="binPath">底板多边形</param>
+        /// <param name="parts">板件多边形列表</param>
+        /// <param name="config">参数设置</param>
+        /// <param name="count">迭代计算次数</param>
         public Nest(NestPath binPath, List<NestPath> parts, Config config, int count)
-        {
+        { 
             this.binPath = binPath;
             this.parts = parts;
             this.config = config;
             this.loopCount = count;
             nfpCache = new Dictionary<string, List<NestPath>>();
         }
-
-        /**
-         *  开始进行Nest计算
-         * @return
-         */
+         
+        /// <summary>
+        /// 开始排料。
+        /// </summary>
+        /// <returns></returns>
         public List<List<Placement>> startNest()
-        {
+        { 
             List<NestPath> tree = CommonUtil.BuildTree(parts, Config.CURVE_TOLERANCE);
 
             CommonUtil.offsetTree(tree, 0.5 * config.SPACING);
@@ -65,6 +91,7 @@ namespace NestingLibPort
             {
                 nestPath.config = config;
             }
+
             NestPath binPolygon = NestPath.cleanNestPath(binPath);
             Bound binBound = GeometryUtil.getPolygonBounds(binPolygon);
             if (config.SPACING > 0)
@@ -77,6 +104,7 @@ namespace NestingLibPort
             }
             binPolygon.setId(-1);
 
+            #region 确认每个分片是否都能放置，如分片大过版面则不能放置。
             List<int> integers = checkIfCanBePlaced(binPolygon, tree);
             List<NestPath> safeTree = new List<NestPath>();
             foreach (int i in integers)
@@ -84,7 +112,9 @@ namespace NestingLibPort
                 safeTree.Add(tree[i]);
             }
             tree = safeTree;
+            #endregion
 
+            #region 获取和计算版面的XY方向最大最小值，方法比较原始。
             double xbinmax = binPolygon.get(0).x;
             double xbinmin = binPolygon.get(0).x;
             double ybinmax = binPolygon.get(0).y;
@@ -110,23 +140,27 @@ namespace NestingLibPort
                     ybinmin = binPolygon.get(i).y;
                 }
             }
+            #endregion
+
+            #region 将版面移动到坐标0，左下角为原点（0，0）
             for (int i = 0; i < binPolygon.size(); i++)
             {
                 binPolygon.get(i).x -= xbinmin;
                 binPolygon.get(i).y -= ybinmin;
             }
-
-
+            #endregion
+             
             double binPolygonWidth = xbinmax - xbinmin;
             double binPolygonHeight = ybinmax - ybinmin;
 
+            #region 点顺序反转，删除最后一点。
+            // 如果面积大于0就将多边形的点反转过来，通过面积是正数还是负数判断方向。
             if (GeometryUtil.polygonArea(binPolygon) > 0)
             {
                 binPolygon.reverse();
             }
-            /**
-             * 确保为逆时针
-             */
+
+            // 确保为逆时针 
             for (int i = 0; i < tree.Count; i++)
             {
                 Segment start = tree[i].get(0);
@@ -141,13 +175,15 @@ namespace NestingLibPort
                 }
             }
 
+            #endregion
+
             launchcount = 0;
-            Result best = null;
+            Result best = null;//最好的返回结果。
 
-
+            #region 注释掉了的。
             // Tree Modification based on nest4J
             //List<NestPath> modifiedTree = new List<NestPath>();
-           
+
             //for (int i = 0; i < tree.Count; i++)
             //{
             //    List<Segment> modifiedSegment = new List<Segment>();
@@ -162,10 +198,9 @@ namespace NestingLibPort
             //    modifiedTree.Add(currentTree);
             //}
             //tree = modifiedTree;
+            #endregion
 
-
-
-
+            #region 按次数迭代计算。
             for (int i = 0; i < loopCount; i++)
             {
 
@@ -183,8 +218,11 @@ namespace NestingLibPort
                     }
                 }
             }
-            double sumarea = 0;
-            double totalarea = 0;
+            #endregion
+
+            #region 计算总面积。
+            double sumarea = 0;//总面积。分片面积*数量。
+            double totalarea = 0;//总面积，版面面积*数量。
             for (int i = 0; i < best.placements.Count; i++)
             {
                 totalarea += Math.Abs(GeometryUtil.polygonArea(binPolygon));
@@ -198,45 +236,52 @@ namespace NestingLibPort
                     catch (Exception ex)
                     {
 
-                       
+
                     }
                 }
             }
-            double rate = (sumarea / totalarea) * 100;
+            #endregion
+
+            double rate = (sumarea / totalarea) * 100;//利用率。
             List<List<Placement>> appliedPlacement = applyPlacement(best, tree);
             return appliedPlacement;
         }
 
-        /**
-         *  一次迭代计算
-         * @param tree  底板
-         * @param binPolygon    板件列表
-         * @param config    设置
-         * @return
-         */
+        /// <summary>
+        /// 一次迭代计算。发送工作。
+        /// </summary>
+        /// <param name="tree"></param>
+        /// <param name="binPolygon"></param>
+        /// <param name="config"></param>
+        /// <returns></returns>
         public Result launchWorkers(List<NestPath> tree, NestPath binPolygon, Config config)
         {
 
             launchcount++;
-            if (GA == null)
-            {
 
-                List<NestPath> adam = new List<NestPath>();
-                foreach (NestPath nestPath in tree)
+            #region 如果GA为空，则创建一个GA实例。
+            if (GA == null)
+            { 
+                List<NestPath> adam = new List<NestPath>();//最初的人
+                foreach (NestPath nestPath in tree)//克隆路径到集合，
                 {
                     NestPath clone = new NestPath(nestPath);
                     adam.Add(clone);
                 }
-                foreach (NestPath nestPath in adam)
+
+                foreach (NestPath nestPath in adam)//计算钣件面积。
                 {
                     nestPath.area = GeometryUtil.polygonArea(nestPath);
                 }
-                adam.Sort((x,y)=>x.area.CompareTo(y.area));
+
+                adam.Sort((x, y) => x.area.CompareTo(y.area));//按面积大小排序。
                 //Collections.sort(adam);
                 GA = new GeneticAlgorithm(adam, binPolygon, config);
             }
 
-            Individual individual = null;
+            #endregion
+
+            Individual individual = null;//个体，有个性的人。
             for (int i = 0; i < GA.population.Count; i++)
             {
                 if (GA.population[i].getFitness() < 0)
@@ -268,9 +313,8 @@ namespace NestingLibPort
             }
             List<NfpPair> nfpPairs = new List<NfpPair>();
             NfpKey key = null;
-            /**
-             * 如果在nfpCache里没找到nfpKey 则添加进nfpPairs
-             */
+
+            // 如果在nfpCache里没找到nfpKey 则添加进nfpPairs
             for (int i = 0; i < placelist.Count; i++)
             {
                 NestPath part = placelist[i];
@@ -279,6 +323,7 @@ namespace NestingLibPort
                     nfpPairs.Add(new NfpPair(binPolygon, part, key));
                 else
                 {
+                    Debug.WriteLine("nfp pair重复。");
                 }
                 for (int j = 0; j < i; j++)
                 {
@@ -287,21 +332,20 @@ namespace NestingLibPort
                     nfpPairs.Add(new NfpPair(placed, part, keyed));
                 }
             }
-
-
-            /**
-             * 第一次nfpCache为空 ，nfpCache存的是nfpKey所对应的两个polygon所形成的Nfp( List<NestPath> )
-             */
+             
+            #region 第一次nfpCache为空 ，nfpCache存的是nfpKey所对应的两个polygon所形成的Nfp( List<NestPath> )
             List<ParallelData> generatedNfp = new List<ParallelData>();
             foreach (NfpPair nfpPair in nfpPairs)
             {
                 ParallelData dataTemp = NfpUtil.nfpGenerator(nfpPair, config);
                 generatedNfp.Add(dataTemp);
             }
+
             for (int i = 0; i < generatedNfp.Count; i++)
             {
                 ParallelData Nfp = generatedNfp[i];
                 //TODO remove gson & generate a new key algorithm
+                //TODO 删除gson并生成新的密钥算法
                 String tkey = serialize.Serialize(Nfp.getKey()); //gson.toJson(Nfp.getKey());
                 if (!nfpCache.ContainsKey(tkey))
                 {
@@ -314,10 +358,10 @@ namespace NestingLibPort
 
             }
 
+            #endregion
+
             PlacementWorker worker = new PlacementWorker(binPolygon, config, nfpCache);
-            List<NestPath> placeListSlice = new List<NestPath>();
-
-
+            List<NestPath> placeListSlice = new List<NestPath>();//放置裁片集合。
 
             for (int i = 0; i < placelist.Count; i++)
             {
@@ -346,13 +390,13 @@ namespace NestingLibPort
             }
             return bestResult;
         }
-
-        /**
-         *  通过id与bid将translate和rotate绑定到对应板件上
-         * @param best
-         * @param tree
-         * @return
-         */
+         
+        /// <summary>
+        /// 通过id与bid将translate和rotate绑定到对应板件上
+        /// </summary>
+        /// <param name="best"></param>
+        /// <param name="tree"></param>
+        /// <returns></returns>
         public static List<List<Placement>> applyPlacement(Result best, List<NestPath> tree)
         {
             List<List<Placement>> applyPlacement = new List<List<Placement>>();
@@ -377,12 +421,14 @@ namespace NestingLibPort
         }
 
 
-        /**
-         * 在遗传算法中每次突变或者是交配产生出新的种群时，可能会出现板件与旋转角度不适配的结果，需要重新检查并适配。
-         * @param binPolygon
-         * @param tree
-         * @return
-         */
+        /// <summary>
+        /// 确认能够放置。
+        /// 在遗传算法中每次突变或者是交配产生出新的种群时，
+        /// 可能会出现板件与旋转角度不适配的结果，需要重新检查并适配。
+        /// </summary>
+        /// <param name="binPolygon"></param>
+        /// <param name="tree"></param>
+        /// <returns></returns>
         private static List<int> checkIfCanBePlaced(NestPath binPolygon, List<NestPath> tree)
         {
             List<int> CanBePlacdPolygonIndex = new List<int>();
@@ -414,10 +460,7 @@ namespace NestingLibPort
             }
             return CanBePlacdPolygonIndex;
         }
-       
-
-
-
+        
         public void add(NestPath np)
         {
             parts.Add(np);

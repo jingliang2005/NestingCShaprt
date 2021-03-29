@@ -23,3 +23,32 @@ D:\Code\Office\NestingPlugin\Nesting With UI\Nesting With UI\clipper\bin\Debug\c
 D:\Code\Office\NestingPlugin\Nesting With UI\Nesting With UI\clipper\bin\Debug\clipper_library.pdb
 D:\Code\Office\NestingPlugin\Nesting With UI\Nesting With UI\clipper\obj\Debug\clipper_library.dll
 D:\Code\Office\NestingPlugin\Nesting With UI\Nesting With UI\clipper\obj\Debug\clipper_library.pdb
+E:\anzhenghe\github\NestingCShaprt\clipper\bin\Debug\clipper_library.dll
+E:\anzhenghe\github\NestingCShaprt\clipper\bin\Debug\clipper_library.pdb
+E:\anzhenghe\github\NestingCShaprt\clipper\obj\Debug\clipper_library.csprojAssemblyReference.cache
+E:\anzhenghe\github\NestingCShaprt\clipper\obj\Debug\clipper_library.csproj.CoreCompileInputs.cache
+E:\anzhenghe\github\NestingCShaprt\clipper\obj\Debug\clipper_library.dll
+E:\anzhenghe\github\NestingCShaprt\clipper\obj\Debug\clipper_library.pdb
+E:\anzhenghe\github\Nestings\NestingCShaprt\clipper\bin\Debug\clipper_library.dll
+E:\anzhenghe\github\Nestings\NestingCShaprt\clipper\bin\Debug\clipper_library.pdb
+E:\anzhenghe\github\Nestings\NestingCShaprt\clipper\obj\Debug\clipper_library.csprojAssemblyReference.cache
+E:\anzhenghe\github\Nestings\NestingCShaprt\clipper\obj\Debug\clipper_library.dll
+E:\anzhenghe\github\Nestings\NestingCShaprt\clipper\obj\Debug\clipper_library.pdb
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\clipper\bin\Debug\clipper_library.dll
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\clipper\bin\Debug\clipper_library.pdb
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\clipper\obj\Debug\clipper_library.csprojAssemblyReference.cache
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\clipper\obj\Debug\clipper_library.csproj.CoreCompileInputs.cache
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\clipper\obj\Debug\clipper_library.dll
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\clipper\obj\Debug\clipper_library.pdb
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\bin\Debug\clipper_library.dll
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\bin\Debug\clipper_library.pdb
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.csprojAssemblyReference.cache
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.csproj.CoreCompileInputs.cache
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.dll
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.pdb
+H:\MyCode\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\bin\Debug\clipper_library.dll
+H:\MyCode\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\bin\Debug\clipper_library.pdb
+H:\MyCode\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.csprojAssemblyReference.cache
+H:\MyCode\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.csproj.CoreCompileInputs.cache
+H:\MyCode\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.dll
+H:\MyCode\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.pdb

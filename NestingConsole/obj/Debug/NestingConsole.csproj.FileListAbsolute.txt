@@ -8,3 +8,38 @@ D:\Code\Office\NestingPlugin\Nesting With UI\Nesting With UI\NestingConsole\bin\
 D:\Code\Office\NestingPlugin\Nesting With UI\Nesting With UI\NestingConsole\obj\Debug\NestingConsole.csprojResolveAssemblyReference.cache
 D:\Code\Office\NestingPlugin\Nesting With UI\Nesting With UI\NestingConsole\obj\Debug\NestingConsole.exe
 D:\Code\Office\NestingPlugin\Nesting With UI\Nesting With UI\NestingConsole\obj\Debug\NestingConsole.pdb
+E:\anzhenghe\github\NestingCShaprt\NestingConsole\bin\Debug\NestingConsole.exe.config
+E:\anzhenghe\github\NestingCShaprt\NestingConsole\bin\Debug\NestingConsole.exe
+E:\anzhenghe\github\NestingCShaprt\NestingConsole\bin\Debug\NestingConsole.pdb
+E:\anzhenghe\github\NestingCShaprt\NestingConsole\bin\Debug\NestingLibPort.dll
+E:\anzhenghe\github\NestingCShaprt\NestingConsole\bin\Debug\clipper_library.dll
+E:\anzhenghe\github\NestingCShaprt\NestingConsole\bin\Debug\NestingLibPort.pdb
+E:\anzhenghe\github\NestingCShaprt\NestingConsole\bin\Debug\clipper_library.pdb
+E:\anzhenghe\github\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.csprojAssemblyReference.cache
+E:\anzhenghe\github\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.csproj.CoreCompileInputs.cache
+E:\anzhenghe\github\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.csproj.CopyComplete
+E:\anzhenghe\github\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.exe
+E:\anzhenghe\github\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.pdb
+E:\anzhenghe\github\Nestings\NestingCShaprt\NestingConsole\bin\Debug\NestingConsole.exe.config
+E:\anzhenghe\github\Nestings\NestingCShaprt\NestingConsole\bin\Debug\NestingConsole.exe
+E:\anzhenghe\github\Nestings\NestingCShaprt\NestingConsole\bin\Debug\NestingConsole.pdb
+E:\anzhenghe\github\Nestings\NestingCShaprt\NestingConsole\bin\Debug\NestingLibPort.dll
+E:\anzhenghe\github\Nestings\NestingCShaprt\NestingConsole\bin\Debug\clipper_library.dll
+E:\anzhenghe\github\Nestings\NestingCShaprt\NestingConsole\bin\Debug\NestingLibPort.pdb
+E:\anzhenghe\github\Nestings\NestingCShaprt\NestingConsole\bin\Debug\clipper_library.pdb
+E:\anzhenghe\github\Nestings\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.csprojAssemblyReference.cache
+E:\anzhenghe\github\Nestings\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.csproj.CopyComplete
+E:\anzhenghe\github\Nestings\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.exe
+E:\anzhenghe\github\Nestings\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.pdb
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\NestingConsole\bin\Debug\NestingConsole.exe.config
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\NestingConsole\bin\Debug\NestingConsole.exe
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\NestingConsole\bin\Debug\NestingConsole.pdb
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\NestingConsole\bin\Debug\NestingLibPort.dll
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\NestingConsole\bin\Debug\clipper_library.dll
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\NestingConsole\bin\Debug\NestingLibPort.pdb
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\NestingConsole\bin\Debug\clipper_library.pdb
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.csprojAssemblyReference.cache
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.csproj.CoreCompileInputs.cache
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.csproj.CopyComplete
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.exe
+E:\anzhenghe\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\NestingCShaprt\NestingConsole\obj\Debug\NestingConsole.pdb

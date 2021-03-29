@@ -11,9 +11,19 @@ using System.Threading.Tasks;
 //import java.util.List;
 namespace NestingLibPort.Data
 {
+    /// <summary>
+    /// 平行数据。NFP轨迹数据，从二个路径生成。封装一个NFP KEY和路径集合。
+    /// </summary>
     public class ParallelData
     {
+        /// <summary>
+        /// NFP键。
+        /// </summary>
         public NfpKey key;
+
+        /// <summary>
+        /// 路径集合。
+        /// </summary>
         public List<NestPath> value;
 
         public ParallelData()

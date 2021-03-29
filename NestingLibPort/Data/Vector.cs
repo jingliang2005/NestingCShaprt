@@ -7,6 +7,9 @@ namespace NestingLibPort.Data
 {
     using Paths = List<List<IntPoint>>;
 
+    /// <summary>
+    /// 向量。保存X坐标，Y坐标，ID,旋转角度。NFP路径，（IntPoint）集合的集合表示。
+    /// </summary>
     public class Vector
     {
         public double x;
