@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NestingLibPort.Algorithm.GeneticAlgorithm" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhAKAAAAAEgIQAAAAAAAgARAAgAIAAJAAAAAEABABAA=</HashCode>
+      <FileName>Algorithm\GeneticAlgorithm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Algorithm.Individual" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAIAAIAAAAAQkgICAAAAICAAIAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Algorithm\Individual.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NestingLibPort.Data.Bound" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ZABABAIAIAAAAAQEQAAAAAAAAAAAQAAEAAAAAEAAAAA=</HashCode>
+      <FileName>Data\Bound.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Data.NestPath" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JkACgICAaAwIAAbFgKKAYIAACACAAAIABkAAAABCDgE=</HashCode>
+      <FileName>Data\NestPath.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NestingLibPort.Data.NfpKey" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAEABgAAQBYAAAAAAAAAAAEAAABgIAEAACA=</HashCode>
+      <FileName>Data\NfpKey.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Data.NfpPair" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAABBIEAAAAAAAAAAAAAAAAIAEAQCA=</HashCode>
+      <FileName>Data\NfpPair.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Data.ParallelData" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAABAIEAAAAAAAAACAAAAAAAAAAQAA=</HashCode>
+      <FileName>Data\ParallelData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Data.Placement" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAQAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Data\Placement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Data.Result" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Data\Result.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Data.Segment" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAIAAACAAAAAAAlgAAGAIAAAAAAAgAgAABgAGAAAAA=</HashCode>
+      <FileName>Data\Segment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Data.SegmentRelation" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAIAEAAAA=</HashCode>
+      <FileName>Data\SegmentRelation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Data.Vector" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAEAACAAAAAAAAAAAAAAABgAAAAAgA=</HashCode>
+      <FileName>Data\Vector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Nest" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAGUEAgQEAAAAAACIAEAAAAAAAAAAQAAIACiQAA=</HashCode>
+      <FileName>Nest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Util.CollectionUtils" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Util\CollectionUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Util.CommonUtil" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAJAAEAAAQAAAQAAAAAAABAAAIgAAIAAQAAAAAQA=</HashCode>
+      <FileName>Util\CommonUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Util.Config" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAEAABABAAAAAABAAQAAAAAAAAAAQAAgAg=</HashCode>
+      <FileName>Util\Config.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Util.Deque&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>C2DEEEAAIYgGABAEGAQABAQGKAEQAqAIKEBSoIBBEYk=</HashCode>
+      <FileName>Util\Deque.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NestingLibPort.Util.GeometryUtil" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAzAAAAERE5AAAAAEEAAAABBAAiAAgUAACAAACAECQ=</HashCode>
+      <FileName>Util\GeometryUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Util.NfpUtil" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Util\NfpUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Util.PlacementWorker" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAEAABAAAAQAAAAAAAAAAAAAAAAAAAAAIAAAEAA=</HashCode>
+      <FileName>Util\PlacementWorker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Util.PositionUtil" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Util\PositionUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Util.SvgUtil" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Util\SvgUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Util.Coor.ClipperCoor" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAABgAGAAAAA=</HashCode>
+      <FileName>Util\Coor\ClipperCoor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NestingLibPort.Util.Coor.NestCoor" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAABgAGAAAAA=</HashCode>
+      <FileName>Util\Coor\NestCoor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>
