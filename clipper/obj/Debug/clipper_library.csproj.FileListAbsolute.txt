@@ -52,3 +52,8 @@ H:\MyCode\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingC
 H:\MyCode\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.csproj.CoreCompileInputs.cache
 H:\MyCode\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.dll
 H:\MyCode\gitlab-azh\chongqinglin\lasercutting2d\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.pdb
+C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\clipper\bin\Debug\clipper_library.dll
+C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\clipper\bin\Debug\clipper_library.pdb
+C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.csproj.CoreCompileInputs.cache
+C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.dll
+C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.pdb
