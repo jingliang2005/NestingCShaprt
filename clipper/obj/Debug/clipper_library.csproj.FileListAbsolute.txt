@@ -57,3 +57,4 @@ C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\cli
 C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.csproj.CoreCompileInputs.cache
 C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.dll
 C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.pdb
+C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\clipper\obj\Debug\clipper_library.csprojAssemblyReference.cache

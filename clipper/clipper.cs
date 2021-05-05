@@ -39,14 +39,17 @@
 *                                                                              *
 *******************************************************************************/
 
+// 启用后，将使用32位整数而不是64位整数。 这样可以提高性能，但是坐标值限制在+/- 46340范围内
 //use_int32: When enabled 32bit ints are used instead of 64bit ints. This
 //improve performance but coordinate values are limited to the range +/- 46340
 //#define use_int32
 
-//use_xyz: adds a Z member to IntPoint. Adds a minor cost to performance.
+// 将Z成员添加到IntPoint。 在性能上增加了较小的成本。
+// use_xyz: adds a Z member to IntPoint. Adds a minor cost to performance.
 //#define use_xyz
 
-//use_lines: Enables open path clipping. Adds a very minor cost to performance.
+// 启用开放路径剪切。 在性能上增加了非常小的成本。
+// use_lines: Enables open path clipping. Adds a very minor cost to performance.
 #define use_lines
 
 
@@ -1489,6 +1492,9 @@ namespace ClipperLib
 
     } //end ClipperBase
 
+    /// <summary>
+    /// 剪辑器。
+    /// </summary>
     public class Clipper : ClipperBase
     {
         //InitOptions that can be passed to the constructor ...
@@ -1512,6 +1518,10 @@ namespace ClipperLib
         IntPoint bot2, IntPoint top2, ref IntPoint pt);
       public ZFillCallback ZFillFunction { get; set; }
 #endif
+        /// <summary>
+        /// 初始化选项。
+        /// </summary>
+        /// <param name="InitOptions"></param>
         public Clipper(int InitOptions = 0) : base() //constructor
         {
             m_Scanbeam = null;
@@ -1534,6 +1544,10 @@ namespace ClipperLib
         }
         //------------------------------------------------------------------------------
 
+        /// <summary>
+        /// 插入最大。
+        /// </summary>
+        /// <param name="X"></param>
         private void InsertMaxima(cInt X)
         {
             //double-linked list: sorted ascending, ignoring dups.
@@ -1564,34 +1578,57 @@ namespace ClipperLib
             }
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 反转解决方案。
+        /// </summary>
         public bool ReverseSolution
         {
             get;
             set;
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 严格简化。
+        /// </summary>
         public bool StrictlySimple
         {
             get;
             set;
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 执行。
+        /// </summary>
+        /// <param name="clipType"></param>
+        /// <param name="solution"></param>
+        /// <param name="FillType"></param>
+        /// <returns></returns>
         public bool Execute(ClipType clipType, Paths solution, PolyFillType FillType = PolyFillType.pftEvenOdd)
         {
             return Execute(clipType, solution, FillType, FillType);
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 执行。
+        /// </summary>
+        /// <param name="clipType"></param>
+        /// <param name="polytree"></param>
+        /// <param name="FillType"></param>
+        /// <returns></returns>
         public bool Execute(ClipType clipType, PolyTree polytree,
             PolyFillType FillType = PolyFillType.pftEvenOdd)
         {
             return Execute(clipType, polytree, FillType, FillType);
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 执行。
+        /// </summary>
+        /// <param name="clipType"></param>
+        /// <param name="solution"></param>
+        /// <param name="subjFillType"></param>
+        /// <param name="clipFillType"></param>
+        /// <returns></returns>
         public bool Execute(ClipType clipType, Paths solution,
             PolyFillType subjFillType, PolyFillType clipFillType)
         {
@@ -1620,7 +1657,14 @@ namespace ClipperLib
             return succeeded;
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 执行。
+        /// </summary>
+        /// <param name="clipType"></param>
+        /// <param name="polytree"></param>
+        /// <param name="subjFillType"></param>
+        /// <param name="clipFillType"></param>
+        /// <returns></returns>
         public bool Execute(ClipType clipType, PolyTree polytree,
             PolyFillType subjFillType, PolyFillType clipFillType)
         {
@@ -1645,7 +1689,10 @@ namespace ClipperLib
             return succeeded;
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 修复孔链接
+        /// </summary>
+        /// <param name="outRec"></param>
         internal void FixHoleLinkage(OutRec outRec)
         {
             //skip if an outermost polygon or
@@ -1660,7 +1707,10 @@ namespace ClipperLib
             outRec.FirstLeft = orfl;
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 内部执行
+        /// </summary>
+        /// <returns></returns>
         private bool ExecuteInternal()
         {
             try
@@ -1713,14 +1763,21 @@ namespace ClipperLib
             }
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 处置所有PolyPts
+        /// </summary>
         private void DisposeAllPolyPts()
         {
             for (int i = 0; i < m_PolyOuts.Count; ++i) DisposeOutRec(i);
             m_PolyOuts.Clear();
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 添加联接
+        /// </summary>
+        /// <param name="Op1"></param>
+        /// <param name="Op2"></param>
+        /// <param name="OffPt"></param>
         private void AddJoin(OutPt Op1, OutPt Op2, IntPoint OffPt)
         {
             Join j = new Join();
@@ -1730,7 +1787,11 @@ namespace ClipperLib
             m_Joins.Add(j);
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 增加镜像连接。
+        /// </summary>
+        /// <param name="Op"></param>
+        /// <param name="OffPt"></param>
         private void AddGhostJoin(OutPt Op, IntPoint OffPt)
         {
             Join j = new Join();
@@ -1752,7 +1813,10 @@ namespace ClipperLib
       }
       //------------------------------------------------------------------------------
 #endif
-
+        /// <summary>
+        /// 将本地最小值插入AEL
+        /// </summary>
+        /// <param name="botY"></param>
         private void InsertLocalMinimaIntoAEL(cInt botY)
         {
             LocalMinima lm;
@@ -4589,7 +4653,7 @@ namespace ClipperLib
     } //end Clipper
 
     /// <summary>
-    /// 
+    /// 剪辑偏移。
     /// </summary>
     public class ClipperOffset
     {
