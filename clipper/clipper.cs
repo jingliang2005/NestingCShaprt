@@ -4999,7 +4999,7 @@ namespace ClipperLib
         /// 执行。
         /// </summary>
         /// <param name="solution">解决方案</param>
-        /// <param name="delta">增量</param>
+        /// <param name="delta">三角洲</param>
         public void Execute(ref Paths solution, double delta)
         {
             solution.Clear();
@@ -5030,7 +5030,11 @@ namespace ClipperLib
             }
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 执行。
+        /// </summary>
+        /// <param name="solution"></param>
+        /// <param name="delta">三角洲</param>
         public void Execute(ref PolyTree solution, double delta)
         {
             solution.Clear();
@@ -5073,7 +5077,12 @@ namespace ClipperLib
             }
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 偏移点。
+        /// </summary>
+        /// <param name="j"></param>
+        /// <param name="k"></param>
+        /// <param name="jointype"></param>
         void OffsetPoint(int j, ref int k, JoinType jointype)
         {
             //cross product ...
