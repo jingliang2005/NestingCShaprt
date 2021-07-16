@@ -446,7 +446,7 @@ namespace NestingLibPort.Data
         /// </summary>
         /// <returns></returns>
         public int getId()
-        {
+        { 
             return id;
         }
         /// <summary>

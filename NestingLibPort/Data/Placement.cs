@@ -10,7 +10,7 @@ namespace NestingLibPort.Data
     /// 放置，代表排料后的放置结果。
     /// </summary>
     public class Placement
-    {
+    { 
         /// <summary>
         /// 投标，出价的意思 。
         /// </summary>

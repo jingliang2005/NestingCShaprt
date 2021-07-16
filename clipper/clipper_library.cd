@@ -1,35 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ClipperLib.PolyTree">
-    <Position X="3.5" Y="5.5" Width="1.5" />
+  <Class Name="ClipperLib.PolyTree" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAQBAAAQ=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ClipperLib.PolyNode">
-    <Position X="3.5" Y="0.5" Width="1.75" />
+  <Class Name="ClipperLib.PolyNode" Collapsed="true">
+    <Position X="5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAEgAIEIAACAAASBAAIAAgIAIAgAAAAAABAAA=</HashCode>
+      <HashCode>IAAAAAAAEgAIEIAACAAASBQAIAAwIAIAgAAAAAABAAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClipperLib.TEdge" Collapsed="true">
-    <Position X="9.75" Y="2.5" Width="1.5" />
+    <Position X="4.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QgKEEAAABACAoAAAgAEABAAACAYIAEAAAAAAAAAAAAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClipperLib.IntersectNode" Collapsed="true">
-    <Position X="9.75" Y="0.5" Width="1.5" />
+    <Position X="4.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAYAAAAAAAEAAAAAAAAAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClipperLib.MyIntersectNodeSort" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="9.75" Y="1.5" Width="1.5" />
+    <Position X="4.5" Y="4" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>clipper.cs</FileName>
@@ -37,154 +37,147 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ClipperLib.LocalMinima" Collapsed="true">
-    <Position X="6.25" Y="1.5" Width="1.5" />
+    <Position X="1" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAIAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClipperLib.Scanbeam" Collapsed="true">
-    <Position X="8" Y="2.5" Width="1.5" />
+    <Position X="2.75" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClipperLib.Maxima" Collapsed="true">
-    <Position X="8" Y="1.5" Width="1.5" />
+    <Position X="2.75" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAQAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClipperLib.OutRec" Collapsed="true">
-    <Position X="6.25" Y="2.5" Width="1.5" />
+    <Position X="1" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAACAAABAAAAAAAAAAAIAAAAYAAgAAAAAAAAAAAAAAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClipperLib.OutPt" Collapsed="true">
-    <Position X="11.5" Y="1.5" Width="1.5" />
+    <Position X="6.25" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgACAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClipperLib.Join" Collapsed="true">
-    <Position X="11.5" Y="0.5" Width="1.5" />
+    <Position X="6.25" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAEAAAAAAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ClipperLib.ClipperBase">
-    <Position X="0.5" Y="0.5" Width="2" />
+  <Class Name="ClipperLib.ClipperBase" Collapsed="true">
+    <Position X="2" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QABkAEICACooBAgAAwIEAkCEQAQRwABAQ0QIBIBImQQ=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClipperLib.Clipper" Collapsed="true">
-    <Position X="0.75" Y="11.5" Width="1.5" />
-    <NestedTypes>
-      <Enum Name="ClipperLib.Clipper.NodeType" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>clipper.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
+    <Position X="2.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>jhKoof41CSCpAgYQ8BkzZIgcKGkREnoClNg4AUIAQOg=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClipperLib.ClipperOffset" Collapsed="true">
-    <Position X="8" Y="0.5" Width="1.5" />
+    <Position X="2.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAFAQAAQggAAYAIAAAAQAQAAAQgQIAAAAIQEJAAAM=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClipperLib.ClipperException" Collapsed="true">
-    <Position X="6.25" Y="0.5" Width="1.5" />
+    <Position X="1" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="ClipperLib.DoublePoint" Collapsed="true">
-    <Position X="6.25" Y="3.75" Width="1.5" />
+    <Position X="1" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="ClipperLib.Int128" Collapsed="true">
-    <Position X="8" Y="3.75" Width="1.5" />
+    <Position X="2.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAhAAwAGACgAAAgAAAIAAAAAAAAAAAiA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="ClipperLib.IntPoint" Collapsed="true">
-    <Position X="9.75" Y="3.75" Width="1.5" />
+    <Position X="4.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAYiA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="ClipperLib.IntRect" Collapsed="true">
-    <Position X="11.5" Y="3.75" Width="1.5" />
+    <Position X="6.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAABAAAAAAAAgAAAAIAAAAAAAAAAAAgAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Enum Name="ClipperLib.ClipType" Collapsed="true">
-    <Position X="6.25" Y="5" Width="1.5" />
+    <Position X="1" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAEAQAAAAAAEAAAAAEAAAAAAAAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ClipperLib.PolyType" Collapsed="true">
-    <Position X="9.75" Y="5.75" Width="1.5" />
+    <Position X="4.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ClipperLib.PolyFillType" Collapsed="true">
-    <Position X="8" Y="5.75" Width="1.5" />
+    <Position X="2.75" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgBAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ClipperLib.JoinType" Collapsed="true">
-    <Position X="6.25" Y="5.75" Width="1.5" />
+    <Position X="1" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAACAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ClipperLib.EndType" Collapsed="true">
-    <Position X="11.5" Y="5" Width="1.5" />
+    <Position X="6.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACBAAgAAAAAAAAAAAAAAAAABAIAAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ClipperLib.EdgeSide" Collapsed="true">
-    <Position X="9.75" Y="5" Width="1.5" />
+    <Position X="4.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAEAAAAAAA=</HashCode>
       <FileName>clipper.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ClipperLib.Direction" Collapsed="true">
-    <Position X="8" Y="5" Width="1.5" />
+    <Position X="2.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAIAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>clipper.cs</FileName>

@@ -1521,7 +1521,7 @@ namespace ClipperLib
         /// <summary>
         /// 初始化选项。
         /// </summary>
-        /// <param name="InitOptions"></param>
+        /// <param name="InitOptions">初始化选项。</param>
         public Clipper(int InitOptions = 0) : base() //constructor
         {
             m_Scanbeam = null;
@@ -1599,9 +1599,9 @@ namespace ClipperLib
         /// <summary>
         /// 执行。
         /// </summary>
-        /// <param name="clipType"></param>
-        /// <param name="solution"></param>
-        /// <param name="FillType"></param>
+        /// <param name="clipType">剪辑类型</param>
+        /// <param name="solution">解决方案路径集合</param>
+        /// <param name="FillType">填充类型</param>
         /// <returns></returns>
         public bool Execute(ClipType clipType, Paths solution, PolyFillType FillType = PolyFillType.pftEvenOdd)
         {
@@ -4629,7 +4629,11 @@ namespace ClipperLib
                 AddPolyNodeToPaths(pn, nt, paths);
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 打开路径（不闭合）。
+        /// </summary>
+        /// <param name="polytree"></param>
+        /// <returns></returns>
         public static Paths OpenPathsFromPolyTree(PolyTree polytree)
         {
             Paths result = new Paths();
@@ -4640,7 +4644,11 @@ namespace ClipperLib
             return result;
         }
         //------------------------------------------------------------------------------
-
+        /// <summary>
+        /// 闭合路径。
+        /// </summary>
+        /// <param name="polytree"></param>
+        /// <returns></returns>
         public static Paths ClosedPathsFromPolyTree(PolyTree polytree)
         {
             Paths result = new Paths();

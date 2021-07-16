@@ -40,7 +40,8 @@ namespace NestingLibPort.Util
         /// <summary>
         /// 凹
         /// </summary>
-        private bool CONCAVE;
+        public bool CONCAVE;
+
         /// <summary>
         /// 当板件中存在空心板件时，是否允许将板件放在空心板件当中
         /// </summary>

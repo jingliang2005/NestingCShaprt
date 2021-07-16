@@ -112,7 +112,7 @@ C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\Nes
 C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\NestingLibPort\bin\Debug\NestingLibPort.pdb
 C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\NestingLibPort\bin\Debug\clipper_library.dll
 C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\NestingLibPort\bin\Debug\clipper_library.pdb
-C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\NestingLibPort\obj\Debug\NestingLibPort.csprojAssemblyReference.cache
+C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\NestingLibPort\obj\Debug\NestingLibPort.csproj.AssemblyReference.cache
 C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\NestingLibPort\obj\Debug\NestingLibPort.csproj.CoreCompileInputs.cache
 C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\NestingLibPort\obj\Debug\NestingLibPort.csproj.CopyComplete
 C:\MyCodes\chongqinglin\lasercutting2D\LaserCutting2D\Nesting\NestingCShaprt\NestingLibPort\obj\Debug\NestingLibPort.dll

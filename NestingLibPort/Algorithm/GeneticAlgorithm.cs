@@ -57,7 +57,7 @@ namespace NestingLibPort.Algorithm
             population = new List<Individual>();
             init();
         }
-         
+
         /// <summary>
         /// 一代，世代。选择一个本代最优的人，循环以下步骤直到簇群大小：
         /// 并随机选择二个人交配出一个小孩，小孩再变异
@@ -130,10 +130,10 @@ namespace NestingLibPort.Algorithm
             Individual individual1 = new Individual(gene1, rot1);
             Individual individual2 = new Individual(gene2, rot2);
 
-            checkAndUpdate(individual1); 
+            checkAndUpdate(individual1);
             checkAndUpdate(individual2);
-             
-            children.Add(individual1); 
+
+            children.Add(individual1);
             children.Add(individual2);
             return children;
         }
@@ -274,7 +274,7 @@ namespace NestingLibPort.Algorithm
             {
                 Bound rotatedPart = GeometryUtil.rotatePolygon(part, angleList[i]);
 
-                if (rotatedPart.getWidth() < binBounds.getWidth() && 
+                if (rotatedPart.getWidth() < binBounds.getWidth() &&
                     rotatedPart.getHeight() < binBounds.getHeight())
                 {
                     return angleList[i];
@@ -330,7 +330,7 @@ namespace NestingLibPort.Algorithm
                 double angle = individual.getRotation()[i];
                 NestPath nestPath = individual.getPlacement()[i];
                 Bound rotateBound = GeometryUtil.rotatePolygon(nestPath, angle);
-                if (rotateBound.width < binBounds.width && 
+                if (rotateBound.width < binBounds.width &&
                     rotateBound.height < binBounds.height)
                 {
                     continue;
